@@ -1,20 +1,23 @@
 const Book = require ("../models/books");
 const CategoryModel = require("../models/category");
-const BooksModal = require ("../models/books");
 const BookModel = require("../models/books");
 
 
 const showAllBooks = async () => {
     try {
-    let data = await Book.find({});
+    let data = await Book.find({}).populate("category");
     if(data.length  === 0){
         console.log("Nothing to Dispaly")
+
     }
-    data.forEach(book => console.log("\n", book.title));
+    
+    // return data;
+    data.forEach(book => console.log("\n", book.title+"   "+book.category.name));
     }catch(e){
-        console.log("Seem to have run into some trouble",e.message)
+        console.log("Seem to have run into some trouble",e.message);
+        return [];
     }
-    return;
+   
 }
 
 
@@ -25,10 +28,10 @@ const addNewBook = async (title,price,category,authors) => {
     let entry = await CategoryModel.findOne({name: category});
     
     try{
-        if(cat){
+        if(entry){
             let id  = entry.id
     
-            const book = new Book({ title,price,id,authorArray});
+            const book = new Book({title: title, price: price,category: id, authors: authorArray});
             await book.save();
             await BookModel.updateOne({
                 title: title,

@@ -10,6 +10,7 @@ const CategorySchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     }
+    
 })
 
 const CategoryModel =  new mongoose.model('Category',CategorySchema)

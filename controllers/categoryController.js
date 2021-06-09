@@ -1,3 +1,4 @@
+const BookModel = require("../models/books");
 const Category = require ("../models/category");
 
 
@@ -36,4 +37,19 @@ const removeCategory = async (name) => {
     }
 }
 
-module.exports = {showAllCategories,addNewCategory,removeCategory}
+const searchByCategory = async (name) => {
+    try {
+        const category = await Category.findOne({name:name});
+        if(category === null){
+            console.log("Category not found");
+
+        }else{
+            let books = await BookModel.find({category:category.id});
+            books.map((book,index) => console.log(`${index+1}.  ${book.title} by ${book.author}`));
+        }
+    }catch(e){
+        console.log("You got an error while adding book",e.message);
+    }
+}
+
+module.exports = {showAllCategories,addNewCategory,removeCategory,searchByCategory}
