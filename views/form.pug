@@ -1,0 +1,22 @@
+head 
+    title McLaren Library
+    link(rel="stylesheet" href="styles.css")
+    div(class = "form-container")
+        form(action="/addbook", method="post") 
+            div(class="element")
+                label(for="title") Title:
+                input( type="text",id="title",name="title")
+            div(class="element")
+                label(for="price") Price:
+                input(type="text",id="price",name="price")
+            div(class="element")        
+                label(for="category") Categories 
+                select(name="category",id = "category" )
+                    option(value="Categories")
+                    each val in list 
+                        option(value=val.name ) #{val.name}
+            div(class="element")
+                label(for="authors") Authors (comma seprated): 
+                input(type="text",id="authors",name="authors")
+        
+            input(type="submit", value="Add Book"  )

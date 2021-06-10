@@ -3,11 +3,19 @@ const Category = require ("../models/category");
 
 
 const showAllCategories = async () => {
+    try{
     let data = await Category.find({});
     if(data.length  === 0){
         console.log("Nothing to Dispaly")
     }
-    data.forEach(category => console.log("\n", category.name));
+
+    // data.forEach(category => console.log("\n", category.name));
+    return data;
+    }catch(e){
+        console.log("You got an error while fetching book",e.message);
+        return []
+    }
+
 }
 
 

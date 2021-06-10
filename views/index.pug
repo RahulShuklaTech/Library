@@ -3,3 +3,8 @@ head
     link(rel="stylesheet" href="styles.css")
     body 
         h1=message
+        div 
+            each val in books 
+                p= val.title +' by '+ val.author[0]  
+        
+        a(href="./form") add book  

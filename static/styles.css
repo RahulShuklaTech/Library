@@ -1,8 +1,41 @@
 body{
-    background-color: red;
-    color: blue;
+    background-color: skyblue;
+    
 }
 
 h1 {
     color: green;
+}
+
+p{
+    width: 50vw;
+    border: 2px solid black;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.form-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+form {
+    width: 50rem;
+    height: 60rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   
+}
+
+.element {
+    width: 40rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
 }
