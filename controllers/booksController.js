@@ -66,13 +66,15 @@ const removeBook = async (name) => {
         const book = await Book.findOne({ title: name });
         if (book === null) {
             console.log("Book not found");
-
+            return false
         } else {
             await book.remove();
             console.log(name + " has been removed")
+            return true
         }
     } catch (e) {
         console.log("You got an error while removing the book", e.message);
+        return false
     }
 }
 

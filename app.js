@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const books = require("./controllers/booksController")
 const categories = require("./controllers/categoryController")
-
+const cors = require("cors")
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/library', {
     useNewUrlParser: true,
@@ -17,16 +17,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/library', {
 const app = express();
 app.use(morgan('dev'));
 app.use(express.static('static'))
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended: true}))
+app.use(
+    cors({
+        origin: "*"
+    })
+)
 
 app.set('view engine','pug')
 const bookRouter = require('./routes/books')
 
 
-app.use("/books",bookRouter)
+app.use("/books/",bookRouter)
 
 
-
+// app.get('/books/:id')
 
 
 app.get('/', async (req,res) => {
@@ -57,9 +62,11 @@ app.get('/addbook', async (req,res) => {
         res.status(400).send("bad request")
     }
     console.log("this happened")
-
-    
+   
 })
+
+
+
 
 
 
