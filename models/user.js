@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     password: {
-        type: Password,
+        type: String,
         required: true
     },
     image: {
@@ -24,4 +24,4 @@ const userSchema = new mongoose.Schema({
 
 const userModel = new mongoose.model('User',userSchema);
 
-module.exports = userSchema;
+module.exports = userModel;

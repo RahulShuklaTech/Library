@@ -1,10 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const books = require("./controllers/booksController")
 const categories = require("./controllers/categoryController")
 const cors = require("cors")
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/library', {
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -23,12 +24,13 @@ app.use(
         origin: "*"
     })
 )
-
+app.use(express.json());
 app.set('view engine','pug')
 const bookRouter = require('./routes/books')
+const authRouter = require('./routes/auth')
 
-
-app.use("/books/",bookRouter)
+app.use("/books",bookRouter);
+app.use("/auth",authRouter);
 
 
 // app.get('/books/:id')
