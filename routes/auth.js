@@ -23,11 +23,10 @@ const userController = require('../controllers/userController');
 
 router.post('/signup',multipart.single("profilePic"), async (req,res) => {
     
-    console.log("body",req.body);
-
-    console.log(req.file);
-    // req.body.photoURL = req.file.filename
+   
+    req.body.photoURL = req.file.filename
     let result  = await userController.addUser(req.body);
+    console.log("result",result)
     if(result.status) {
         res.status(201).send(result.result);
     }else{

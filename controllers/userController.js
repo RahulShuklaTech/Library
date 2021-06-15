@@ -16,7 +16,7 @@ const addUser = async ({username,email,password,photo}) => {
         return {status: false, result : "Password is required"};
 
     }
-    
+
 
     let hash = await bcrypt.hash(password, 10)                                                                      ;
 
@@ -26,7 +26,7 @@ const addUser = async ({username,email,password,photo}) => {
         return {status: true, result: savedUser};
     }catch(e){
         console.log(e.message)
-        return {status: true, result: e.message};
+        return {status: false, result: e.message};
     }
 }
 
