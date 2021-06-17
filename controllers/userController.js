@@ -9,11 +9,11 @@ const addUser = async ({username,email,password,photo}) => {
     }
     let emailRegex = /.*@*\..*/;
     if(!emailRegex.test(email)){
-        return {status: false, message: "Invalid Email ID"};
+        return {status: false, result: {message: "Invalid Email"}};
     }
 
     if(!password) {
-        return {status: false, result : "Password is required"};
+        return {status: false, result : {message: "Password is required"}};
 
     }
 
@@ -23,10 +23,10 @@ const addUser = async ({username,email,password,photo}) => {
     try {
         let user = new User ({username,email,password: hash,photo});
         let savedUser = await user.save();
-        return {status: true, result: savedUser};
+        return {status: true, result: { message: savedUser}};
     }catch(e){
         console.log(e.message)
-        return {status: false, result: e.message};
+        return {status: false, result: { error: e.message}};
     }
 }
 
@@ -36,22 +36,25 @@ const getUsers = async () => {
 }
 
 
-// const loginUser = async ({email,password}) => {
-//     try {
-//         let user = await User.findOne({email});
-//         if(user == null){
-//             return {status: false, result: {message: "Invalid Email"}}
+const loginUser = async ({email,password}) => {
+    console.log(email,password)
+    try {
+        let user = await User.findOne({email});
+        if(user == null){
+            return {status: false, result: {message: "Invalid Email"}}
 
-//         }
-//         let result = await bcrypt.compare(password, user.password);
-//         if(!result){
-//             return {status: false, result: {message: "Invalid Password"}}
-//         }
-//         return {status: true}
-//     }
-// }
+        }
+        let result = await bcrypt.compare(password, user.password);
+        if(!result){
+            return {status: false, result: {message: "Invalid Password"}}
+        }
+        return {status: true, result: user}
+    }catch(e){
+        return {status: false, result: {Error: e.message }}
+    }
+}
 
 
 
 
-module.exports = {addUser}
+module.exports = {addUser,getUsers,loginUser}
