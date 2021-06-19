@@ -2,11 +2,22 @@ const express = require('express');
 const router = express.Router();
 const {showAllBooks,removeBook} = require('../controllers/booksController')
 
+
+
+
 router
     .route('/')
     .get(async (req,res) => {
-        let data = await showAllBooks();
-        res.send(data)
+        let result = await showAllBooks();
+        console.log("res",result)
+        if(result.status){
+            res.status(200).json(result.message)
+        }else{
+            console.log("herei come")
+            res.redirect(301, "/login")
+
+        }
+        
         
     })
     .post((req,res) => {

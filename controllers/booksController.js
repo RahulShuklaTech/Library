@@ -10,12 +10,12 @@ const showAllBooks = async () => {
             console.log("Nothing to Dispaly")
 
         }
-        data.forEach(book => console.log("\n", book.title + "   " + book.category.name));
-        return data;
+        // data.forEach(book => console.log("\n", book.title + "   " + book.category.name));
+        return {status: true,message: data};
 
     } catch (e) {
         console.log("Seem to have run into some trouble", e.message);
-        return [];
+        return {status:false,message: []};
     }
 
 }
